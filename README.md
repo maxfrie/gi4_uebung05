@@ -1,0 +1,12 @@
+# Übung 5: Stack und Funktionen
+
+## Stack 
+1. Beim IMUL-Befehl wird das `edx` Register überschrieben und das *Overflow Flag* und das *Carry Flag* signalisieren, ob ein Überlauf stattgefunden hat. Hierbei geht der ursprüngliche Inhalt des Registers `edx` verloren. Schreiben Sie ein exemplarisches 32Bit Assemblerprogramm, das eine sichere Multiplikation von 2 Variablen realisiert. Hierbei soll der Inhalt des Registers `edx` auf den Stack gesichert und nach der Multiplikation wiederhergestellt werden. Zeichnen Sie den Inhalt des Stacks zu Beginn des Progamms und unmittelbar nach der Multiplikation.
+
+## Funktionen
+
+1. Ein Codefragment benutze lokal 6 Integervariablen (int, jeweils 4 Byte), einen 20 Zeichen langen String und 2 Gleitkommazahlen (double, jeweils 8 Byte). Die lokalen Variablen befinden sich in der obigen Reihenfolge auf dem Stack. Zeichnen Sie den Aufbau des Stacks! Was passiert, falls die Länge des Strings nicht berücksichtigt wird und 30 Zeichen in die Stringvariable kopiert werden?
+
+2. Der Stack wird auch genutzt um die lokalen Variablen von Funktionen zu verwalten. Jede Funktion benutzt nur ihren eigenen Teil des Stacks, hierbei werden die Register `esp` und `ebp` genutzt. ebp ist fix und zeigt auf den Beginn des lokalen Stackframes, `esp` zeigt auf die letzte belegte Speicherstelle des Stacks. Die aktuelle Funktion übergibt die Kontrolle an eine andere Funktion, indem sie die Instruktion `call` ausführt. Die aufgerufene Funktion merkt sich den alten Wert von ebp, indem sie ihn auf den Stack sichert. Zeichnen Sie den Stack nachdem eine Funktion *A* mit den lokalen Variablen `int i,j,k; char a,b;` die Funktion *B* mit den lokalen Variablen `int l,m; double x,y;` aufgerufen hat und die Funktion *B* ihre lokalen Variablen eingerichtet hat. Der Datentyp `int` sei hier 4 Bytes breit, der Datentyp `char` ein Byte und der Datentyp `double` 8 Bytes.
+
+3. Die letzte in diesem Übungsblatt aufgezeigte Verwendung des Stacks ist die Übergabe von Parametern bei einem 32Bit System. Die oben betrachteten Funktionen hatten keine Möglichkeit miteinander zu kommunizieren. Diskutieren Sie, wie eine Funktion `max(a, b)`, welche die größere der beiden Zahlen `a` und `b` zurückgeben soll, dies bewerkstelligen kann. Erörtern Sie, wie `max` an die Werte von `a` und `b` gelangen könnte und wie das Ergebnis zurückgegeben werden könnte.
