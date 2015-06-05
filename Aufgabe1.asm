@@ -1,22 +1,32 @@
 SECTION .data
-	a DD 1
-	b DD 2
+	a DD 5
+	b DD 10
+	ergebnis DQ 0
 
 SECTION .text
 	GLOBAL main
 
 main:
-	PUSH ebp
+	PUSH ebp	; Neuen Stackframe erstellen
 	MOV ebp, esp
 
-	PUSH edx	; früheren Inhalt von edx sichern
-	MOV eax, dword [a]
+	MOV eax, dword [a] ; Faktoren laden
 	MOV ebx, dword [b]
-	IMUL eax, ebx
+	PUSH edx        ; früheren Inhalt von edx sichern
+	IMUL eax, ebx	; edx:eax := eax * edx
+
+	JNC noproblem	; Auf Überlauf prüfen (Carry und Overflow-Flags
+	JNO noproblem	; nicht gesetzt) (32-Bit Ergebnis)
+
+	MOV dword [ergebnis+4], edx	; sonst 64-Bit Ergebnis speichern
+					; (Little-Endian)
+
+noproblem:
+	MOV dword [ergebnis], eax
 
 	POP edx		; edx wiederherstellen
 
-	MOV esp, ebp
+	MOV esp, ebp	; Stack Frame restaurieren
 	POP ebp
 
 	MOV ebx, 0
